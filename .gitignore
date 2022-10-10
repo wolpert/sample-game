@@ -15,6 +15,7 @@
 .idea/*
 */*.class
 */target/*
+**/*.tiled-session
 
 *android/libs/armeabi/
 *android/libs/armeabi-v7a/
