@@ -1,0 +1,6 @@
+/*
+ * Copyright (c) 2020-2022. CodeHead Systems. All rights reserved
+ * Ned Wolpert <ned.wolpert@codeheadsystems.com>
+ */
+
+include ':core', ':desktop'
