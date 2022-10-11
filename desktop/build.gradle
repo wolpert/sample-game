@@ -3,10 +3,6 @@
  * Ned Wolpert <ned.wolpert@codeheadsystems.com>
  */
 
-project.ext.mainClassName = "com.codeheadsystems.sample.desktop.BasicDesktopLauncher"
-project.ext.entityClassName = "com.codeheadsystems.sample.desktop.EntityDesktopLauncher"
-project.ext.box2dClassName = "com.codeheadsystems.sample.desktop.Box2dDesktopLauncher"
-project.ext.hexClassName = "com.codeheadsystems.sample.desktop.HexDesktopLauncher"
 project.ext.assetsDir = new File("../core/assets")
 
 apply plugin: "java-library"
@@ -39,7 +35,7 @@ dependencies {
 }
 
 task run(dependsOn: classes, type: JavaExec) {
-    main = project.mainClassName
+    main = "com.codeheadsystems.sample.desktop.BasicDesktopLauncher"
     classpath = sourceSets.main.runtimeClasspath
     standardInput = System.in
     workingDir = project.assetsDir
@@ -47,7 +43,7 @@ task run(dependsOn: classes, type: JavaExec) {
 }
 
 task entity(dependsOn: classes, type: JavaExec) {
-    main = project.entityClassName
+    main = "com.codeheadsystems.sample.desktop.EntityDesktopLauncher"
     classpath = sourceSets.main.runtimeClasspath
     standardInput = System.in
     workingDir = project.assetsDir
@@ -55,7 +51,7 @@ task entity(dependsOn: classes, type: JavaExec) {
 }
 
 task box2d(dependsOn: classes, type: JavaExec) {
-    main = project.box2dClassName
+    main = "com.codeheadsystems.sample.desktop.Box2dDesktopLauncher"
     classpath = sourceSets.main.runtimeClasspath
     standardInput = System.in
     workingDir = project.assetsDir
@@ -63,7 +59,15 @@ task box2d(dependsOn: classes, type: JavaExec) {
 }
 
 task hex(dependsOn: classes, type: JavaExec) {
-    main = project.hexClassName
+    main = "com.codeheadsystems.sample.desktop.HexDesktopLauncher"
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+    workingDir = project.assetsDir
+    setIgnoreExitValue(true)
+}
+
+task battle(dependsOn: classes, type: JavaExec) {
+    main = "com.codeheadsystems.sample.desktop.BattleDesktopLauncher"
     classpath = sourceSets.main.runtimeClasspath
     standardInput = System.in
     workingDir = project.assetsDir
@@ -71,7 +75,7 @@ task hex(dependsOn: classes, type: JavaExec) {
 }
 
 task debug(dependsOn: classes, type: JavaExec) {
-    main = project.mainClassName
+    main = "com.codeheadsystems.sample.desktop.BasicDesktopLauncher"
     classpath = sourceSets.main.runtimeClasspath
     standardInput = System.in
     workingDir = project.assetsDir
@@ -81,7 +85,7 @@ task debug(dependsOn: classes, type: JavaExec) {
 
 task dist(type: Jar) {
     manifest {
-        attributes 'Main-Class': project.mainClassName
+        attributes 'Main-Class': "com.codeheadsystems.sample.desktop.BasicDesktopLauncher"
     }
     dependsOn configurations.runtimeClasspath
     from {

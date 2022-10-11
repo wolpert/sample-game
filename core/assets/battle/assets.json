@@ -1,0 +1,8 @@
+{
+  "assetsToLoad": {
+    "com.badlogic.gdx.graphics.Texture": [
+      "tank.png"
+    ]
+  },
+  "loaders": []
+}
