@@ -64,7 +64,7 @@ public class SampleBattleModule {
     return screen -> {
       System.out.println("Sample Sprite!");
       // This texture only gets disposed once the asset manager gets disposed.
-      final Texture img = assetManager.get("battle/tank.png", Texture.class);
+      final Texture img = assetManager.get("tank.png", Texture.class);
       final Sprite sprite = new Sprite(img);
       sprite.setX(0);
       sprite.setY(0);
