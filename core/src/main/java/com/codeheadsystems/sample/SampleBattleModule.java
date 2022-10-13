@@ -21,25 +21,20 @@ import static com.codeheadsystems.gamelib.core.dagger.GameResources.RESOURCE_PAT
 import static com.codeheadsystems.gamelib.core.dagger.LoadingModule.MAIN_SCREEN;
 import static com.codeheadsystems.gamelib.entity.dagger.GameLibEntityModule.ENTITY_SCREEN_SHOW_CONSUMER;
 
-import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.codeheadsystems.gamelib.entity.component.ResizableComponent;
-import com.codeheadsystems.gamelib.entity.component.SortComponent;
-import com.codeheadsystems.gamelib.entity.component.SpriteComponent;
 import com.codeheadsystems.gamelib.entity.entity.EntityScreen;
-import com.codeheadsystems.gamelib.entity.manager.EngineManager;
+import com.codeheadsystems.sample.dagger.BattleEntityModule;
+import com.codeheadsystems.sample.entitysystem.TiledBackgroundEntitySystems;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
+import dagger.multibindings.IntoSet;
 import java.util.function.Consumer;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
-@Module(includes = {SampleBattleModule.Binder.class})
+@Module(includes = {SampleBattleModule.Binder.class, BattleEntityModule.class})
 public class SampleBattleModule {
 
   @Provides
@@ -58,34 +53,15 @@ public class SampleBattleModule {
   @Provides
   @Singleton
   @Named(ENTITY_SCREEN_SHOW_CONSUMER)
-  Consumer<EntityScreen> showConsumer(final EngineManager engineManager,
-                                      final AssetManager assetManager,
-                                      final OrthographicCamera camera) {
+  Consumer<EntityScreen> showConsumer() {
     return screen -> {
-      System.out.println("Sample Sprite!");
-      // This texture only gets disposed once the asset manager gets disposed.
-      final Texture img = assetManager.get("tank.png", Texture.class);
-      final Sprite sprite = new Sprite(img);
-      sprite.setX(0);
-      sprite.setY(0);
-      // sets the size based on the viewport....
-      // note, probably should have a resize handler....
-      float width = camera.viewportWidth / 3f;
-      float height = width / img.getWidth() * img.getHeight();
-      sprite.setSize(width, height);
-      sprite.setCenter(camera.viewportWidth / 2f, camera.viewportHeight / 2f);
-      final Entity entity = engineManager.createEntity()
-          .add(engineManager.createComponent(SpriteComponent.class).sprite(sprite))
-          .add(engineManager.createComponent(ResizableComponent.class).setWidth(width))
-          .add(engineManager.createComponent(SortComponent.class));
-      engineManager.addEntity(entity);
     };
   }
 
   /**
    * Binder methods only. Must be interfaces.
    */
-  @Module
+                               @Module
   interface Binder {
 
     /**
@@ -96,5 +72,15 @@ public class SampleBattleModule {
     @Binds
     @Named(MAIN_SCREEN)
     Screen mainScreen(EntityScreen impl);
+
+    /**
+     * Add our tiled entity set.
+     *
+     * @param entitySystems we are binding.
+     * @return an entity system.
+     */
+    @Binds
+    @IntoSet
+    EntitySystem tiledBackground(TiledBackgroundEntitySystems entitySystems);
   }
 }

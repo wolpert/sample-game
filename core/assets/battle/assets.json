@@ -2,6 +2,9 @@
   "assetsToLoad": {
     "com.badlogic.gdx.graphics.Texture": [
       "tank.png"
+    ],
+    "com.badlogic.gdx.maps.tiled.TiledMap": [
+      "field.tmx"
     ]
   },
   "loaders": []
