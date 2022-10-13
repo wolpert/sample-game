@@ -59,7 +59,6 @@ public class BattleEntityModule {
       sprite.setCenter(camera.viewportWidth / 2f, camera.viewportHeight / 2f);
       final Entity entity = engineManager.createEntity()
           .add(engineManager.createComponent(SpriteComponent.class).sprite(sprite))
-          .add(engineManager.createComponent(ResizableComponent.class).setWidth(width))
           .add(engineManager.createComponent(SortComponent.class));
       engineManager.addEntity(entity);
       return entity;
