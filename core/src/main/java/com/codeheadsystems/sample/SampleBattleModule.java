@@ -18,23 +18,25 @@
 package com.codeheadsystems.sample;
 
 import static com.codeheadsystems.gamelib.core.dagger.GameResources.RESOURCE_PATH;
-import static com.codeheadsystems.gamelib.core.dagger.LoadingModule.MAIN_SCREEN;
-import static com.codeheadsystems.gamelib.entity.dagger.GameLibEntityModule.ENTITY_SCREEN_SHOW_CONSUMER;
+import static com.codeheadsystems.gamelib.core.dagger.LoadingModule.MAIN_SCREEN_PROVIDER;
 
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.gdx.Screen;
+import com.codeheadsystems.gamelib.core.dagger.GdxRuntimeCache;
+import com.codeheadsystems.gamelib.core.dagger.GdxRuntimeCacheModule;
 import com.codeheadsystems.gamelib.entity.entity.EntityScreen;
 import com.codeheadsystems.sample.dagger.BattleEntityModule;
+import com.codeheadsystems.sample.dagger.DaggerBattleGameScreenComponent;
 import com.codeheadsystems.sample.entitysystem.TiledBackgroundEntitySystems;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import dagger.multibindings.IntoSet;
-import java.util.function.Consumer;
+import java.util.function.Function;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
-@Module(includes = {SampleBattleModule.Binder.class, BattleEntityModule.class})
+@Module
 public class SampleBattleModule {
 
   @Provides
@@ -44,43 +46,14 @@ public class SampleBattleModule {
     return "battle/";
   }
 
-  /**
-   * You cannot use Textures or other things that are loaded by the asset manager during
-   * dagger injection. The asset manager has to have loaded everything up... which only
-   * happens during the loading screen. You can have your own entity screen that creates
-   * the sprites if you want, or use the method shown below.
-   */
   @Provides
   @Singleton
-  @Named(ENTITY_SCREEN_SHOW_CONSUMER)
-  Consumer<EntityScreen> showConsumer() {
-    return screen -> {
-    };
+  @Named(MAIN_SCREEN_PROVIDER)
+  Function<GdxRuntimeCache, Screen> mainScreenProvider() {
+    return (gdx) -> DaggerBattleGameScreenComponent.builder()
+        .gdxRuntimeCacheModule(new GdxRuntimeCacheModule(gdx))
+        .build()
+        .screen();
   }
 
-  /**
-   * Binder methods only. Must be interfaces.
-   */
-                               @Module
-  interface Binder {
-
-    /**
-     * Here, we want the first screen to be used once loaded as the entity screen.
-     * You can actually setup your own screen first that once the game starts, goes
-     * to the entity screen.
-     */
-    @Binds
-    @Named(MAIN_SCREEN)
-    Screen mainScreen(EntityScreen impl);
-
-    /**
-     * Add our tiled entity set.
-     *
-     * @param entitySystems we are binding.
-     * @return an entity system.
-     */
-    @Binds
-    @IntoSet
-    EntitySystem tiledBackground(TiledBackgroundEntitySystems entitySystems);
-  }
 }

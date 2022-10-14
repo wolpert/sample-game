@@ -36,8 +36,7 @@ public class BattleDesktopLauncher {
   @Singleton
   @Component(modules = {
       SampleBattleModule.class,
-      GameLibModule.class,
-      GameLibEntityModule.class
+      GameLibModule.class
   })
   public interface BattleDesktopComponent {
 
