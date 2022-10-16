@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.codeheadsystems.gamelib.entity.component.SortComponent;
@@ -19,10 +20,13 @@ import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import dagger.multibindings.IntoSet;
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 @Module(includes = {BattleEntityModule.Binder.class})
 public class BattleEntityModule {
+
+  private static final float UNIT_SCALE = 1/4f;
 
   @Provides
   @Singleton
@@ -31,9 +35,9 @@ public class BattleEntityModule {
                                     final SpriteBatch spriteBatch,
                                     final AssetManager assetManager) {
     return () -> {
-      TiledMap tiledMap = assetManager.get("field.tmx", TiledMap.class);
-      OrthogonalTiledMapRenderer renderer = new OrthogonalTiledMapRenderer(tiledMap,
-          1 / 4f, spriteBatch);
+      final TiledMap tiledMap = assetManager.get("field.tmx", TiledMap.class);
+      final OrthogonalTiledMapRenderer renderer =
+          new OrthogonalTiledMapRenderer(tiledMap, UNIT_SCALE, spriteBatch);
       final Entity entity = engineManager.createEntity()
           .add(engineManager.createComponent(TiledBackgroundComponent.class).set(renderer));
       engineManager.addEntity(entity);
@@ -45,25 +49,48 @@ public class BattleEntityModule {
   @Singleton
   @IntoSet
   public EntityGenerator tank(final EngineManager engineManager,
-                              final AssetManager assetManager,
-                              final OrthographicCamera camera) {
+                              @Named("tankSprite") final Sprite tankSprite) {
     return () -> {
-      final Texture img = assetManager.get("tank.png", Texture.class);
-      final Sprite sprite = new Sprite(img);
-      sprite.setX(0);
-      sprite.setY(0);
-      // sets the size based on the viewport....
-      // note, probably should have a resize handler....
-      float width = camera.viewportWidth / 3f;
-      float height = width / img.getWidth() * img.getHeight();
-      sprite.setSize(width, height);
-      sprite.setCenter(camera.viewportWidth / 2f, camera.viewportHeight / 2f);
       final Entity entity = engineManager.createEntity()
-          .add(engineManager.createComponent(SpriteComponent.class).sprite(sprite))
+          .add(engineManager.createComponent(SpriteComponent.class).sprite(tankSprite))
           .add(engineManager.createComponent(SortComponent.class));
       engineManager.addEntity(entity);
       return entity;
     };
+  }
+
+  @Provides
+  @Singleton
+  @Named("TILE_WIDTH")
+  public int tileWidth(final AssetManager assetManager) {
+    final TiledMap tiledMap = assetManager.get("field.tmx", TiledMap.class);
+    final MapProperties prop = tiledMap.getProperties();
+    return prop.get("tilewidth", Integer.class);
+  }
+
+  @Provides
+  @Singleton
+  @Named("TILE_HEIGHT")
+  public int tileHeight(final AssetManager assetManager) {
+    final TiledMap tiledMap = assetManager.get("field.tmx", TiledMap.class);
+    final MapProperties prop = tiledMap.getProperties();
+    return prop.get("tileheight", Integer.class);
+  }
+
+  @Provides
+  @Singleton
+  @Named("tankSprite")
+  public Sprite tankSprite(final AssetManager assetManager,
+                           @Named("TILE_WIDTH") final int tileWidth,
+                           @Named("TILE_HEIGHT") final int tileHeight,
+                           final OrthographicCamera camera) {
+    final Texture img = assetManager.get("tank.png", Texture.class);
+    final Sprite sprite = new Sprite(img);
+    sprite.setX(0);
+    sprite.setY(0);
+    sprite.setSize(tileWidth * UNIT_SCALE, tileHeight * UNIT_SCALE);
+    sprite.setCenter(camera.viewportWidth / 2f, camera.viewportHeight / 2f);
+    return sprite;
   }
 
   /**
