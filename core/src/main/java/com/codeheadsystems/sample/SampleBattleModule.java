@@ -26,6 +26,7 @@ import com.codeheadsystems.gamelib.core.dagger.GdxRuntimeCache;
 import com.codeheadsystems.gamelib.core.dagger.GdxRuntimeCacheModule;
 import com.codeheadsystems.gamelib.entity.entity.EntityScreen;
 import com.codeheadsystems.sample.dagger.BattleEntityModule;
+import com.codeheadsystems.sample.dagger.BattleGameScreenComponent;
 import com.codeheadsystems.sample.dagger.DaggerBattleGameScreenComponent;
 import com.codeheadsystems.sample.entitysystem.TiledBackgroundEntitySystems;
 import dagger.Binds;
@@ -50,10 +51,7 @@ public class SampleBattleModule {
   @Singleton
   @Named(MAIN_SCREEN_PROVIDER)
   Function<GdxRuntimeCache, Screen> mainScreenProvider() {
-    return (gdx) -> DaggerBattleGameScreenComponent.builder()
-        .gdxRuntimeCacheModule(new GdxRuntimeCacheModule(gdx))
-        .build()
-        .screen();
+    return (gdx) -> BattleGameScreenComponent.build(gdx).screen();
   }
 
 }
