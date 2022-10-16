@@ -46,106 +46,106 @@ import javax.inject.Singleton;
 @Singleton
 public class SampleHexScreen extends ScreenAdapter {
 
-    private final SpriteBatch batch;
-    private final ShapeRenderer shapeRenderer;
-    private final AssetManager assetManager;
-    private final Set<HexComponent> hexField;
-    private final HexComponentManager hexComponentManager;
-    private final Layout layout;
-    private final HexFieldSearchManager hexFieldSearchManager;
+  private final SpriteBatch batch;
+  private final ShapeRenderer shapeRenderer;
+  private final AssetManager assetManager;
+  private final Set<HexComponent> hexField;
+  private final HexComponentManager hexComponentManager;
+  private final Layout layout;
+  private final HexFieldSearchManager hexFieldSearchManager;
 
-    @Inject
-    public SampleHexScreen(final SpriteBatch batch,
-                           final ShapeRenderer shapeRenderer,
-                           final AssetManager assetManager,
-                           final HexComponentManager hexComponentManager,
-                           final HexFieldLayout hexFieldLayout,
-                           final HexFieldSearchManager hexFieldSearchManager) {
-        this.batch = batch;
-        this.shapeRenderer = shapeRenderer;
-        this.assetManager = assetManager;
-        this.hexComponentManager = hexComponentManager;
-        this.hexFieldSearchManager = hexFieldSearchManager;
-        this.hexField = hexComponentManager.generate(hexFieldLayout);
-        this.layout = hexFieldLayout.layout();
-    }
+  @Inject
+  public SampleHexScreen(final SpriteBatch batch,
+                         final ShapeRenderer shapeRenderer,
+                         final AssetManager assetManager,
+                         final HexComponentManager hexComponentManager,
+                         final HexFieldLayout hexFieldLayout,
+                         final HexFieldSearchManager hexFieldSearchManager) {
+    this.batch = batch;
+    this.shapeRenderer = shapeRenderer;
+    this.assetManager = assetManager;
+    this.hexComponentManager = hexComponentManager;
+    this.hexFieldSearchManager = hexFieldSearchManager;
+    this.hexField = hexComponentManager.generate(hexFieldLayout);
+    this.layout = hexFieldLayout.layout();
+  }
 
-    @Override
-    public void show() {
-        super.show();
-        Gdx.input.setInputProcessor(new InputAdapter(){
-            @Override
-            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                final Optional<HexComponent> component = hexFieldSearchManager.fromPoint(screenX, screenY, layout, hexField);
-                if (component.isPresent()) {
-                    System.out.println("Found " + component.get().hex());
-                } else {
-                    System.out.println("Nothing there");
-                }
-                return true;
-            }
-        });
-    }
-
-    @Override
-    public void render(final float delta) {
-        Gdx.gl.glClearColor(1, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        hexField.stream()
-                .map(HexComponent::vertices)
-                .forEach(shapeRenderer::polygon);
-        shapeRenderer.end();
-    }
-
-    /**
-     * Placed the module here to stop code bloat for the default sample. Typically, you would
-     * have it in a separate file.
-     */
-    @Module(includes = {HexModule.HexConfiguration.class})
-    public interface HexModule {
-
-        @Binds
-        @Named(MAIN_SCREEN)
-        Screen mainScreen(SampleHexScreen impl);
-
-        @Module
-        class HexConfiguration {
-
-            @Provides
-            @Singleton
-            public Layout layout() {
-                return new Layout()
-                    .setOrientation(Orientation.flat)
-                    .setOrigin(new Vector2().set(40, 40))
-                    .setSize(new Vector2().set(40, 40));
-            }
-
-            @Provides
-            @Singleton
-            @Named("HexConfiguration.rows")
-            public int rows() {
-                return 5;
-            }
-
-            @Provides
-            @Singleton
-            @Named("HexConfiguration.cols")
-            public int cols() {
-                return 6;
-            }
-
-            @Provides
-            @Singleton
-            public HexFieldLayout hexFieldLayout(final Layout layout,
-                                                 @Named("HexConfiguration.rows") final int rows,
-                                                 @Named("HexConfiguration.cols") final int cols) {
-                return new HexFieldLayout()
-                    .setRows(rows)
-                    .setCols(cols)
-                    .setLayout(layout);
-            }
+  @Override
+  public void show() {
+    super.show();
+    Gdx.input.setInputProcessor(new InputAdapter() {
+      @Override
+      public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        final Optional<HexComponent> component = hexFieldSearchManager.fromPoint(screenX, screenY, layout, hexField);
+        if (component.isPresent()) {
+          System.out.println("Found " + component.get().hex());
+        } else {
+          System.out.println("Nothing there");
         }
+        return true;
+      }
+    });
+  }
+
+  @Override
+  public void render(final float delta) {
+    Gdx.gl.glClearColor(1, 0, 0, 1);
+    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+    hexField.stream()
+        .map(HexComponent::vertices)
+        .forEach(shapeRenderer::polygon);
+    shapeRenderer.end();
+  }
+
+  /**
+   * Placed the module here to stop code bloat for the default sample. Typically, you would
+   * have it in a separate file.
+   */
+  @Module(includes = {HexModule.HexConfiguration.class})
+  public interface HexModule {
+
+    @Binds
+    @Named(MAIN_SCREEN)
+    Screen mainScreen(SampleHexScreen impl);
+
+    @Module
+    class HexConfiguration {
+
+      @Provides
+      @Singleton
+      public Layout layout() {
+        return new Layout()
+            .setOrientation(Orientation.flat)
+            .setOrigin(new Vector2().set(40, 40))
+            .setSize(new Vector2().set(40, 40));
+      }
+
+      @Provides
+      @Singleton
+      @Named("HexConfiguration.rows")
+      public int rows() {
+        return 5;
+      }
+
+      @Provides
+      @Singleton
+      @Named("HexConfiguration.cols")
+      public int cols() {
+        return 6;
+      }
+
+      @Provides
+      @Singleton
+      public HexFieldLayout hexFieldLayout(final Layout layout,
+                                           @Named("HexConfiguration.rows") final int rows,
+                                           @Named("HexConfiguration.cols") final int cols) {
+        return new HexFieldLayout()
+            .setRows(rows)
+            .setCols(cols)
+            .setLayout(layout);
+      }
     }
+  }
 
 }

@@ -3,8 +3,8 @@ package com.codeheadsystems.sample.screen;
 import static com.codeheadsystems.gamelib.core.util.LoggerHelper.logger;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.utils.Logger;
 import com.codeheadsystems.gamelib.entity.entity.EntityGenerator;
@@ -25,7 +25,7 @@ public class FieldScreen extends ScreenAdapter {
   @Inject
   public FieldScreen(final EngineManager engineManager,
                      final Set<EntityGenerator> entityGenerators,
-                     final Set<InputAdapter> inputAdapters) {
+                     final Set<InputProcessor> inputAdapters) {
     this.engineManager = engineManager;
     this.entityGenerators = entityGenerators;
     multiplexer = new InputMultiplexer();

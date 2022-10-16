@@ -16,6 +16,7 @@ import com.codeheadsystems.gamelib.entity.entity.EntityGenerator;
 import com.codeheadsystems.gamelib.entity.manager.EngineManager;
 import com.codeheadsystems.sample.component.TiledBackgroundComponent;
 import com.codeheadsystems.sample.entitysystem.TiledBackgroundEntitySystems;
+import com.codeheadsystems.sample.entitysystem.ZoomEntitySystem;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
@@ -26,7 +27,7 @@ import javax.inject.Singleton;
 @Module(includes = {BattleEntityModule.Binder.class})
 public class BattleEntityModule {
 
-  private static final float UNIT_SCALE = 1/4f;
+  private static final float UNIT_SCALE = 1 / 4f;
 
   @Provides
   @Singleton
@@ -108,5 +109,9 @@ public class BattleEntityModule {
     @Binds
     @IntoSet
     EntitySystem tiledBackground(TiledBackgroundEntitySystems entitySystems);
+
+    @Binds
+    @IntoSet
+    EntitySystem zoomEntitySystem(ZoomEntitySystem entitySystem);
   }
 }

@@ -17,23 +17,19 @@ public class FireManager extends InputAdapter {
 
   @Override
   public boolean keyDown(final int keycode) {
-    switch (keycode) {
-      case Input.Keys.SPACE:
-        LOGGER.debug("keyDown: " + keycode);
-        return true;
-      default:
-        return false;
+    if (keycode == Input.Keys.SPACE) {
+      LOGGER.debug("keyDown: " + keycode);
+      return true;
     }
+    return false;
   }
 
   @Override
   public boolean keyUp(final int keycode) {
-    switch (keycode) {
-      case Input.Keys.SPACE:
-        LOGGER.debug("keyUp: " + keycode);
-        return true;
-      default:
-        return false;
+    if (keycode == Input.Keys.SPACE) {
+      LOGGER.debug("keyUp: " + keycode);
+      return true;
     }
+    return false;
   }
 }
