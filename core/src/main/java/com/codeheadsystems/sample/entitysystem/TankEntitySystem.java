@@ -12,7 +12,7 @@ import javax.inject.Singleton;
 public class TankEntitySystem extends EntitySystem {
 
   private static final int ROTATION = 60;
-  private static final float MAX_SPEED = 1f;
+  private static final float MAX_SPEED = 2f;
 
   private final Sprite tankSprite;
 
@@ -44,7 +44,9 @@ public class TankEntitySystem extends EntitySystem {
         speed = Math.max(speed, 0f);
       }
       if (speed > 0f) {
-        final float rotation = tankSprite.getRotation();
+        final double radians = Math.toRadians(tankSprite.getRotation());
+        tankSprite.translateX(speed * (float) Math.cos(radians));
+        tankSprite.translateY(speed * (float) Math.sin(radians));
       }
     }
   }
