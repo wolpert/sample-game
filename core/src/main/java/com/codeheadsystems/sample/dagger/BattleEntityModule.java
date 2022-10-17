@@ -92,6 +92,7 @@ public class BattleEntityModule {
     sprite.setSize(tileWidth * UNIT_SCALE, tileHeight * UNIT_SCALE);
     sprite.setOrigin(tileWidth * UNIT_SCALE / 2f, tileHeight * UNIT_SCALE / 2f);
     sprite.setCenter(camera.viewportWidth / 2f, camera.viewportHeight / 2f); // where we start, need to fix this.
+    camera.position.set(sprite.getX(), sprite.getY(), 0); // reset to get rid of weirdness.
     return sprite;
   }
 

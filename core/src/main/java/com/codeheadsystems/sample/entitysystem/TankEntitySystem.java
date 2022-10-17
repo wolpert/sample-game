@@ -3,7 +3,9 @@ package com.codeheadsystems.sample.entitysystem;
 import static com.codeheadsystems.sample.dagger.BattleEntityModule.TANK_SPRITE;
 
 import com.badlogic.ashley.core.EntitySystem;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.MathUtils;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -15,6 +17,7 @@ public class TankEntitySystem extends EntitySystem {
   private static final float MAX_SPEED = 2f;
 
   private final Sprite tankSprite;
+  private final OrthographicCamera camera;
 
   private float speed = 0f;
 
@@ -22,8 +25,10 @@ public class TankEntitySystem extends EntitySystem {
   private Turning turning = Turning.NONE;
 
   @Inject
-  public TankEntitySystem(@Named(TANK_SPRITE) final Sprite tankSprite) {
+  public TankEntitySystem(@Named(TANK_SPRITE) final Sprite tankSprite,
+                          final OrthographicCamera camera) {
     this.tankSprite = tankSprite;
+    this.camera = camera;
   }
 
   @Override
@@ -44,9 +49,10 @@ public class TankEntitySystem extends EntitySystem {
         speed = Math.max(speed, 0f);
       }
       if (speed > 0f) {
-        final double radians = Math.toRadians(tankSprite.getRotation());
-        tankSprite.translateX(speed * (float) Math.cos(radians));
-        tankSprite.translateY(speed * (float) Math.sin(radians));
+        final float rotation = tankSprite.getRotation();
+        tankSprite.translateX(speed * MathUtils.cosDeg(rotation));
+        tankSprite.translateY(speed * MathUtils.sinDeg(rotation));
+        camera.position.set(tankSprite.getX(), tankSprite.getY(), 0);
       }
     }
   }
