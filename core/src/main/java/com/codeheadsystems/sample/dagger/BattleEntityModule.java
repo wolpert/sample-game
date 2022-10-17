@@ -15,6 +15,7 @@ import com.codeheadsystems.gamelib.entity.component.SpriteComponent;
 import com.codeheadsystems.gamelib.entity.entity.EntityGenerator;
 import com.codeheadsystems.gamelib.entity.manager.EngineManager;
 import com.codeheadsystems.sample.component.TiledBackgroundComponent;
+import com.codeheadsystems.sample.entitysystem.TankEntitySystem;
 import com.codeheadsystems.sample.entitysystem.TiledBackgroundEntitySystems;
 import com.codeheadsystems.sample.entitysystem.ZoomEntitySystem;
 import dagger.Binds;
@@ -27,6 +28,7 @@ import javax.inject.Singleton;
 @Module(includes = {BattleEntityModule.Binder.class})
 public class BattleEntityModule {
 
+  public static final String TANK_SPRITE = "tankSprite";
   private static final float UNIT_SCALE = 1 / 4f;
 
   @Provides
@@ -50,7 +52,7 @@ public class BattleEntityModule {
   @Singleton
   @IntoSet
   public EntityGenerator tank(final EngineManager engineManager,
-                              @Named("tankSprite") final Sprite tankSprite) {
+                              @Named(TANK_SPRITE) final Sprite tankSprite) {
     return () -> {
       final Entity entity = engineManager.createEntity()
           .add(engineManager.createComponent(SpriteComponent.class).sprite(tankSprite))
@@ -80,17 +82,16 @@ public class BattleEntityModule {
 
   @Provides
   @Singleton
-  @Named("tankSprite")
+  @Named(TANK_SPRITE)
   public Sprite tankSprite(final AssetManager assetManager,
                            @Named("TILE_WIDTH") final int tileWidth,
                            @Named("TILE_HEIGHT") final int tileHeight,
                            final OrthographicCamera camera) {
     final Texture img = assetManager.get("tank.png", Texture.class);
     final Sprite sprite = new Sprite(img);
-    sprite.setX(0);
-    sprite.setY(0);
     sprite.setSize(tileWidth * UNIT_SCALE, tileHeight * UNIT_SCALE);
-    sprite.setCenter(camera.viewportWidth / 2f, camera.viewportHeight / 2f);
+    sprite.setOrigin(tileWidth * UNIT_SCALE / 2f, tileHeight * UNIT_SCALE / 2f);
+    sprite.setCenter(camera.viewportWidth / 2f, camera.viewportHeight / 2f); // where we start, need to fix this.
     return sprite;
   }
 
@@ -113,5 +114,9 @@ public class BattleEntityModule {
     @Binds
     @IntoSet
     EntitySystem zoomEntitySystem(ZoomEntitySystem entitySystem);
+
+    @Binds
+    @IntoSet
+    EntitySystem tankEntitySystem(TankEntitySystem tankEntitySystem);
   }
 }
