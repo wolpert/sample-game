@@ -5,7 +5,15 @@
     ],
     "com.badlogic.gdx.maps.tiled.TiledMap": [
       "field.tmx"
+    ],
+    "com.codeheadsystems.sample.model.GameConstants": [
+      "game_constants.json"
     ]
   },
-  "loaders": []
+  "loaders": [
+    {
+      "classToLoad": "com.codeheadsystems.sample.model.GameConstants",
+      "loaderClass": "com.codeheadsystems.sample.loader.GameConstantsLoader"
+    }
+  ]
 }

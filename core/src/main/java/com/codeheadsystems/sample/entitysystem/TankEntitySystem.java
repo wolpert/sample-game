@@ -6,6 +6,8 @@ import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
+import com.codeheadsystems.gamelib.entity.entitysystem.Priorities;
+import com.codeheadsystems.sample.model.GameConstants;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -26,7 +28,9 @@ public class TankEntitySystem extends EntitySystem {
 
   @Inject
   public TankEntitySystem(@Named(TANK_SPRITE) final Sprite tankSprite,
-                          final OrthographicCamera camera) {
+                          final OrthographicCamera camera,
+                          final GameConstants gameConstants) {
+    super(Priorities.MOVEMENT.priority());
     this.tankSprite = tankSprite;
     this.camera = camera;
   }

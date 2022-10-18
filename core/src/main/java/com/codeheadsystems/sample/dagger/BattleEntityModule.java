@@ -18,6 +18,7 @@ import com.codeheadsystems.sample.component.TiledBackgroundComponent;
 import com.codeheadsystems.sample.entitysystem.TankEntitySystem;
 import com.codeheadsystems.sample.entitysystem.TiledBackgroundEntitySystems;
 import com.codeheadsystems.sample.entitysystem.ZoomEntitySystem;
+import com.codeheadsystems.sample.model.GameConstants;
 import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
@@ -30,6 +31,12 @@ public class BattleEntityModule {
 
   public static final String TANK_SPRITE = "tankSprite";
   private static final float UNIT_SCALE = 1 / 4f;
+
+  @Provides
+  @Singleton
+  public GameConstants gameConstants(final AssetManager assetManager){
+    return assetManager.get("game_constants.json", GameConstants.class);
+  }
 
   @Provides
   @Singleton
