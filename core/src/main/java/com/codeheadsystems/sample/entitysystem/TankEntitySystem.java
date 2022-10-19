@@ -15,8 +15,8 @@ import javax.inject.Singleton;
 @Singleton
 public class TankEntitySystem extends EntitySystem {
 
-  private static final int ROTATION = 60;
-  private static final float MAX_SPEED = 2f;
+  private final int rotation;
+  private final float maxSpeed;
 
   private final Sprite tankSprite;
   private final OrthographicCamera camera;
@@ -33,6 +33,9 @@ public class TankEntitySystem extends EntitySystem {
     super(Priorities.MOVEMENT.priority());
     this.tankSprite = tankSprite;
     this.camera = camera;
+    final GameConstants.Tank tank = gameConstants.getTank();
+    rotation = tank.getRotation();
+    maxSpeed = tank.getMaxSpeed();
   }
 
   @Override
@@ -47,7 +50,7 @@ public class TankEntitySystem extends EntitySystem {
       // handle speed
       if (gas.equals(Gas.ON)) {
         speed += deltaTime;
-        speed = Math.min(speed, MAX_SPEED);
+        speed = Math.min(speed, maxSpeed);
       } else {
         speed -= deltaTime;
         speed = Math.max(speed, 0f);
@@ -64,8 +67,8 @@ public class TankEntitySystem extends EntitySystem {
   private void rotateTank(final float deltaTime) {
     float rotate = 0;
     switch (turning) {
-      case LEFT -> rotate = deltaTime * ROTATION;
-      case RIGHT -> rotate = -deltaTime * ROTATION;
+      case LEFT -> rotate = deltaTime * rotation;
+      case RIGHT -> rotate = -deltaTime * rotation;
     }
     if (rotate != 0) {
       tankSprite.setRotation(tankSprite.getRotation() + rotate);

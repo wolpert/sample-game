@@ -1,4 +1,6 @@
 {
-  "tankRotation": 60,
-  "tankMaxSpeed": 2
+  "tank": {
+    "rotation": 60,
+    "maxSpeed": 2
+  }
 }
