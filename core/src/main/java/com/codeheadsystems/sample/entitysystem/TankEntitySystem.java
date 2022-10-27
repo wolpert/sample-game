@@ -40,7 +40,6 @@ public class TankEntitySystem extends EntitySystem {
 
   @Override
   public void update(final float deltaTime) {
-    // handel turning
     rotateTank(deltaTime);
     moveTank(deltaTime);
   }
@@ -48,13 +47,8 @@ public class TankEntitySystem extends EntitySystem {
   private void moveTank(final float deltaTime) {
     if (speed > 0 || gas.equals(Gas.ON)) {
       // handle speed
-      if (gas.equals(Gas.ON)) {
-        speed += deltaTime;
-        speed = Math.min(speed, maxSpeed);
-      } else {
-        speed -= deltaTime;
-        speed = Math.max(speed, 0f);
-      }
+      speed += (gas.equals(Gas.ON) ? deltaTime : -deltaTime);
+      speed = MathUtils.clamp(speed, 0f, maxSpeed);
       if (speed > 0f) {
         final float rotation = tankSprite.getRotation();
         tankSprite.translateX(speed * MathUtils.cosDeg(rotation));
