@@ -21,6 +21,7 @@ import static com.codeheadsystems.gamelib.core.dagger.GameResources.RESOURCE_PAT
 import static com.codeheadsystems.gamelib.core.dagger.LoadingModule.MAIN_SCREEN_PROVIDER;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.codeheadsystems.gamelib.core.dagger.GdxRuntimeCache;
 import com.codeheadsystems.sample.dagger.BattleGameScreenComponent;
 import dagger.Module;
@@ -44,6 +45,15 @@ public class SampleBattleModule {
   @Named(MAIN_SCREEN_PROVIDER)
   Function<GdxRuntimeCache, Screen> mainScreenProvider() {
     return (gdx) -> BattleGameScreenComponent.build(gdx).screen();
+  }
+
+  @Provides
+  @Singleton
+  Lwjgl3ApplicationConfiguration configuration(){
+    final Lwjgl3ApplicationConfiguration lwjgl3ApplicationConfiguration = new Lwjgl3ApplicationConfiguration();
+    lwjgl3ApplicationConfiguration.setTransparentFramebuffer(true);
+    lwjgl3ApplicationConfiguration.setWindowedMode(128*6, 128*4);
+    return lwjgl3ApplicationConfiguration;
   }
 
 }
