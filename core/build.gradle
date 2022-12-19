@@ -32,11 +32,10 @@ dependencies {
     api "com.badlogicgames.gdx:gdx:$gdxVersion"
     api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
     api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
-    api "com.badlogicgames.ashley:ashley:$ashleyVersion"
-    api "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
     api "com.badlogicgames.gdx:gdx-bullet:$gdxVersion"
+    api libs.ashley
+    api libs.box2dlights
 
-    // Dagger
-    implementation "com.google.dagger:dagger:${daggerVersion}" // Common files for runtime
-    annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
+    implementation libs.dagger
+    annotationProcessor libs.dagger.compiler
 }

@@ -29,9 +29,8 @@ dependencies {
     api "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
     api "com.badlogicgames.gdx:gdx-bullet-platform:$gdxVersion:natives-desktop"
 
-    // Dagger
-    implementation "com.google.dagger:dagger:${daggerVersion}" // Common files for runtime
-    annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
+    implementation libs.dagger
+    annotationProcessor libs.dagger.compiler
 }
 
 task run(dependsOn: classes, type: JavaExec) {
