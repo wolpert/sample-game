@@ -33,48 +33,54 @@ dependencies {
     annotationProcessor libs.dagger.compiler
 }
 
-task run(dependsOn: classes, type: JavaExec) {
-    main = "com.codeheadsystems.sample.desktop.BasicDesktopLauncher"
+tasks.register('run', JavaExec) {
+    dependsOn classes
+    mainClass = "com.codeheadsystems.sample.desktop.BasicDesktopLauncher"
     classpath = sourceSets.main.runtimeClasspath
     standardInput = System.in
     workingDir = project.assetsDir
     setIgnoreExitValue(true)
 }
 
-task entity(dependsOn: classes, type: JavaExec) {
-    main = "com.codeheadsystems.sample.desktop.EntityDesktopLauncher"
+tasks.register('entity', JavaExec) {
+    dependsOn classes
+    mainClass = "com.codeheadsystems.sample.desktop.EntityDesktopLauncher"
     classpath = sourceSets.main.runtimeClasspath
     standardInput = System.in
     workingDir = project.assetsDir
     setIgnoreExitValue(true)
 }
 
-task box2d(dependsOn: classes, type: JavaExec) {
-    main = "com.codeheadsystems.sample.desktop.Box2dDesktopLauncher"
+tasks.register('box2d', JavaExec) {
+    dependsOn classes
+    mainClass = "com.codeheadsystems.sample.desktop.Box2dDesktopLauncher"
     classpath = sourceSets.main.runtimeClasspath
     standardInput = System.in
     workingDir = project.assetsDir
     setIgnoreExitValue(true)
 }
 
-task hex(dependsOn: classes, type: JavaExec) {
-    main = "com.codeheadsystems.sample.desktop.HexDesktopLauncher"
+tasks.register('hex', JavaExec) {
+    dependsOn classes
+    mainClass = "com.codeheadsystems.sample.desktop.HexDesktopLauncher"
     classpath = sourceSets.main.runtimeClasspath
     standardInput = System.in
     workingDir = project.assetsDir
     setIgnoreExitValue(true)
 }
 
-task battle(dependsOn: classes, type: JavaExec) {
-    main = "com.codeheadsystems.sample.desktop.BattleDesktopLauncher"
+tasks.register('battle', JavaExec) {
+    dependsOn classes
+    mainClass = "com.codeheadsystems.sample.desktop.BattleDesktopLauncher"
     classpath = sourceSets.main.runtimeClasspath
     standardInput = System.in
     workingDir = project.assetsDir
     setIgnoreExitValue(true)
 }
 
-task debug(dependsOn: classes, type: JavaExec) {
-    main = "com.codeheadsystems.sample.desktop.BasicDesktopLauncher"
+tasks.register('debug', JavaExec) {
+    dependsOn classes
+    mainClass = "com.codeheadsystems.sample.desktop.BasicDesktopLauncher"
     classpath = sourceSets.main.runtimeClasspath
     standardInput = System.in
     workingDir = project.assetsDir
@@ -82,7 +88,7 @@ task debug(dependsOn: classes, type: JavaExec) {
     debug = true
 }
 
-task dist(type: Jar) {
+tasks.register('dist', Jar) {
     manifest {
         attributes 'Main-Class': "com.codeheadsystems.sample.desktop.BasicDesktopLauncher"
     }
