@@ -18,11 +18,13 @@ configurations {
 }
 
 dependencies {
+    implementation("com.codeheadsystems:gamelib-desktop:${gamelibVersion}")
     implementation("com.codeheadsystems:gamelib-core:${gamelibVersion}")
     implementation("com.codeheadsystems:gamelib-entity:${gamelibVersion}")
     implementation("com.codeheadsystems:gamelib-box2d:${gamelibVersion}")
     implementation("com.codeheadsystems:gamelib-hex:${gamelibVersion}")
     implementation project(":core")
+    api libs.gdx.backend.lwjgl3
     api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
     api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"

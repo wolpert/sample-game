@@ -35,6 +35,7 @@ dependencies {
     api "com.badlogicgames.gdx:gdx-bullet:$gdxVersion"
     api libs.ashley
     api libs.box2dlights
+    api libs.gdx.backend.lwjgl3
 
     implementation libs.dagger
     annotationProcessor libs.dagger.compiler

@@ -18,7 +18,7 @@
 package com.codeheadsystems.sample.desktop;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
-import com.codeheadsystems.gamelib.core.dagger.GameLibModule;
+import com.codeheadsystems.gamelib.desktop.dagger.GameLibModule;
 import com.codeheadsystems.sample.SampleScreen;
 import dagger.Component;
 import javax.inject.Singleton;

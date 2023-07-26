@@ -105,7 +105,6 @@ allprojects {
 ext {
     codeheadTestVersion = '1.0.4'
     gamelibVersion = '1.0.3-SNAPSHOT'
-    gamelibVersion = '1.0.2'
     gdxVersion = '1.11.0'
 }
 

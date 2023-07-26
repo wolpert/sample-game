@@ -20,7 +20,7 @@ package com.codeheadsystems.sample.desktop;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.codeheadsystems.gamelib.box2d.dagger.GameLibBox2dModule;
 import com.codeheadsystems.gamelib.box2d.manager.WorldManager;
-import com.codeheadsystems.gamelib.core.dagger.GameLibModule;
+import com.codeheadsystems.gamelib.desktop.dagger.GameLibModule;
 import com.codeheadsystems.gamelib.entity.dagger.GameLibEntityModule;
 import com.codeheadsystems.sample.SampleBox2dModule;
 import dagger.Component;
