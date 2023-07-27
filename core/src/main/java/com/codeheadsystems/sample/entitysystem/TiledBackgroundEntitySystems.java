@@ -14,6 +14,9 @@ import com.codeheadsystems.sample.component.TiledBackgroundComponent;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+/**
+ * The type Tiled background entity systems.
+ */
 @Singleton
 public class TiledBackgroundEntitySystems extends WrappedIteratingEntitySystem {
 
@@ -21,6 +24,11 @@ public class TiledBackgroundEntitySystems extends WrappedIteratingEntitySystem {
   private static final ComponentMapper<TiledBackgroundComponent> MAPPER = ComponentMapper.getFor(TiledBackgroundComponent.class);
   private final OrthographicCamera orthographicCamera;
 
+  /**
+   * Instantiates a new Tiled background entity systems.
+   *
+   * @param orthographicCamera the orthographic camera
+   */
   @Inject
   public TiledBackgroundEntitySystems(final OrthographicCamera orthographicCamera) {
     super(Family.all(TiledBackgroundComponent.class).get(), Priorities.BACKGROUND.priority());

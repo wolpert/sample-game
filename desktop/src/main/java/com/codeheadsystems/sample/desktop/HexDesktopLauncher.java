@@ -28,16 +28,29 @@ import javax.inject.Singleton;
  * GDX application up and running without any extras.
  */
 public class HexDesktopLauncher {
+  /**
+   * The entry point of application.
+   *
+   * @param arg the input arguments
+   */
   public static void main(String[] arg) {
     DaggerHexDesktopLauncher_HexDesktopComponent.builder()
         .build()
         .application();
   }
 
+  /**
+   * The interface Hex desktop component.
+   */
   @Singleton
   @Component(modules = {GameLibModule.class, SampleHexScreen.HexModule.class})
   public interface HexDesktopComponent {
 
+    /**
+     * Application lwjgl 3 application.
+     *
+     * @return the lwjgl 3 application
+     */
     Lwjgl3Application application();
 
   }

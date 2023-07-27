@@ -10,9 +10,17 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.codeheadsystems.sample.model.GameConstants;
 
+/**
+ * The type Game constants loader.
+ */
 public class GameConstantsLoader extends AsynchronousAssetLoader<GameConstants, GameConstantsLoader.Parameter> {
   private final Json json;
 
+  /**
+   * Instantiates a new Game constants loader.
+   *
+   * @param resolver the resolver
+   */
   public GameConstantsLoader(FileHandleResolver resolver) {
     super(resolver);
     json = new Json();
@@ -32,6 +40,9 @@ public class GameConstantsLoader extends AsynchronousAssetLoader<GameConstants, 
     return null;
   }
 
+  /**
+   * The type Parameter.
+   */
   public static class Parameter extends AssetLoaderParameters<GameConstants> {
 
   }

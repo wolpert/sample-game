@@ -22,25 +22,42 @@ public class ZoomEntitySystem extends EntitySystem {
   private final OrthographicCamera camera;
   private Zoom zoom = Zoom.NONE;
 
+  /**
+   * Instantiates a new Zoom entity system.
+   *
+   * @param camera the camera
+   */
   @Inject
   public ZoomEntitySystem(final OrthographicCamera camera) {
     this.camera = camera;
   }
 
+  /**
+   * Zoom up.
+   */
   public void zoomUp() {
     zoom = Zoom.UP;
   }
 
+  /**
+   * Zoom down.
+   */
   public void zoomDown() {
     zoom = Zoom.DOWN;
   }
 
+  /**
+   * Disable zoom up.
+   */
   public void disableZoomUp() {
     if (zoom.equals(Zoom.UP)) {
       zoom = Zoom.NONE;
     }
   }
 
+  /**
+   * Disable zoom down.
+   */
   public void disableZoomDown() {
 
     if (zoom.equals(Zoom.DOWN)) {
@@ -67,6 +84,21 @@ public class ZoomEntitySystem extends EntitySystem {
   }
 
 
-  enum Zoom {DOWN, UP, NONE}
+  /**
+   * The enum Zoom.
+   */
+  enum Zoom {
+    /**
+     * Down zoom.
+     */
+    DOWN,
+    /**
+     * Up zoom.
+     */
+    UP,
+    /**
+     * None zoom.
+     */
+    NONE}
 
 }

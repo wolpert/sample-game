@@ -16,6 +16,12 @@ public class KeyboardManager extends InputAdapter {
   private final ZoomEntitySystem zoomEntitySystem;
   private final TankEntitySystem tankEntitySystem;
 
+  /**
+   * Instantiates a new Keyboard manager.
+   *
+   * @param zoomEntitySystem the zoom entity system
+   * @param tankEntitySystem the tank entity system
+   */
   @Inject
   public KeyboardManager(final ZoomEntitySystem zoomEntitySystem,
                          final TankEntitySystem tankEntitySystem) {

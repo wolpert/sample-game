@@ -30,9 +30,17 @@ import java.util.function.Function;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+/**
+ * The type Sample battle module.
+ */
 @Module
 public class SampleBattleModule {
 
+  /**
+   * Resource path string.
+   *
+   * @return the string
+   */
   @Provides
   @Singleton
   @Named(RESOURCE_PATH)
@@ -40,6 +48,11 @@ public class SampleBattleModule {
     return "battle/";
   }
 
+  /**
+   * Main screen provider function.
+   *
+   * @return the function
+   */
   @Provides
   @Singleton
   @Named(MAIN_SCREEN_PROVIDER)
@@ -47,6 +60,11 @@ public class SampleBattleModule {
     return (gdx) -> BattleGameScreenComponent.build(gdx).screen();
   }
 
+  /**
+   * Configuration lwjgl 3 application configuration.
+   *
+   * @return the lwjgl 3 application configuration
+   */
   @Provides
   @Singleton
   Lwjgl3ApplicationConfiguration configuration(){

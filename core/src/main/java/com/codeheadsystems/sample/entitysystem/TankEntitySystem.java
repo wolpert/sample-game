@@ -12,6 +12,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+/**
+ * The type Tank entity system.
+ */
 @Singleton
 public class TankEntitySystem extends EntitySystem {
 
@@ -26,6 +29,13 @@ public class TankEntitySystem extends EntitySystem {
   private Gas gas = Gas.OFF;
   private Turning turning = Turning.NONE;
 
+  /**
+   * Instantiates a new Tank entity system.
+   *
+   * @param tankSprite    the tank sprite
+   * @param camera        the camera
+   * @param gameConstants the game constants
+   */
   @Inject
   public TankEntitySystem(@Named(TANK_SPRITE) final Sprite tankSprite,
                           final OrthographicCamera camera,
@@ -69,36 +79,80 @@ public class TankEntitySystem extends EntitySystem {
     }
   }
 
+  /**
+   * Gas.
+   */
   public void gas() {
     gas = Gas.ON;
   }
 
+  /**
+   * Stop gas.
+   */
   public void stopGas() {
     gas = Gas.OFF;
   }
 
+  /**
+   * Turn left.
+   */
   public void turnLeft() {
     turning = Turning.LEFT;
   }
 
+  /**
+   * Turn right.
+   */
   public void turnRight() {
     turning = Turning.RIGHT;
   }
 
+  /**
+   * Stop turning left.
+   */
   public void stopTurningLeft() {
     if (turning.equals(Turning.LEFT)) {
       turning = Turning.NONE;
     }
   }
 
+  /**
+   * Stop turning right.
+   */
   public void stopTurningRight() {
     if (turning.equals(Turning.RIGHT)) {
       turning = Turning.NONE;
     }
   }
 
-  enum Gas {ON, OFF}
+  /**
+   * The enum Gas.
+   */
+  enum Gas {
+    /**
+     * On gas.
+     */
+    ON,
+    /**
+     * Off gas.
+     */
+    OFF}
 
-  enum Turning {LEFT, RIGHT, NONE}
+  /**
+   * The enum Turning.
+   */
+  enum Turning {
+    /**
+     * Left turning.
+     */
+    LEFT,
+    /**
+     * Right turning.
+     */
+    RIGHT,
+    /**
+     * None turning.
+     */
+    NONE}
 
 }

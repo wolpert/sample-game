@@ -26,14 +26,25 @@ import com.codeheadsystems.sample.SampleBox2dModule;
 import dagger.Component;
 import javax.inject.Singleton;
 
+/**
+ * The type Box 2 d desktop launcher.
+ */
 public class Box2dDesktopLauncher {
 
+  /**
+   * The entry point of application.
+   *
+   * @param arg the input arguments
+   */
   public static void main(String[] arg) {
     DaggerBox2dDesktopLauncher_Box2dDesktopComponent.builder()
         .build()
         .application();
   }
 
+  /**
+   * The interface Box 2 d desktop component.
+   */
   @Singleton
   @Component(modules = {
       GameLibModule.class,
@@ -43,8 +54,18 @@ public class Box2dDesktopLauncher {
   })
   public interface Box2dDesktopComponent {
 
+    /**
+     * Application lwjgl 3 application.
+     *
+     * @return the lwjgl 3 application
+     */
     Lwjgl3Application application();
 
+    /**
+     * World manager world manager.
+     *
+     * @return the world manager
+     */
     WorldManager worldManager();
 
   }

@@ -47,9 +47,17 @@ import java.util.function.Consumer;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+/**
+ * The type Sample box 2 d module.
+ */
 @Module(includes = {SampleBox2dModule.Binder.class})
 public class SampleBox2dModule {
 
+  /**
+   * Viewport width float.
+   *
+   * @return the float
+   */
   @Provides
   @Singleton
   @Named(VIEWPORT_WIDTH)
@@ -62,6 +70,13 @@ public class SampleBox2dModule {
    * dagger injection. The asset manager has to have loaded everything up... which only
    * happens during the loading screen. You can have your own entity screen that creates
    * the sprites if you want, or use the method shown below.
+   *
+   * @param engineManager the engine manager
+   * @param assetManager  the asset manager
+   * @param camera        the camera
+   * @param worldManager  the world manager
+   * @param builder       the builder
+   * @return the consumer
    */
   @Provides
   @Singleton
@@ -127,6 +142,9 @@ public class SampleBox2dModule {
      * Here, we want the first screen to be used once loaded as the entity screen.
      * You can actually setup your own screen first that once the game starts, goes
      * to the entity screen.
+     *
+     * @param impl the
+     * @return the screen
      */
     @Binds
     @Named("mainScreen")

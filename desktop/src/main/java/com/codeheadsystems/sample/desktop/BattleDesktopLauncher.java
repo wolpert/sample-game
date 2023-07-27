@@ -24,15 +24,26 @@ import com.codeheadsystems.sample.SampleBattleModule;
 import dagger.Component;
 import javax.inject.Singleton;
 
+/**
+ * The type Battle desktop launcher.
+ */
 public class BattleDesktopLauncher {
 
 
+  /**
+   * The entry point of application.
+   *
+   * @param arg the input arguments
+   */
   public static void main(String[] arg) {
     DaggerBattleDesktopLauncher_BattleDesktopComponent.builder()
         .build()
         .application();
   }
 
+  /**
+   * The interface Battle desktop component.
+   */
   @Singleton
   @Component(modules = {
       SampleBattleModule.class,
@@ -40,6 +51,11 @@ public class BattleDesktopLauncher {
   })
   public interface BattleDesktopComponent {
 
+    /**
+     * Application lwjgl 3 application.
+     *
+     * @return the lwjgl 3 application
+     */
     Lwjgl3Application application();
 
   }

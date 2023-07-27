@@ -13,6 +13,9 @@ import java.util.Set;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+/**
+ * The type Field screen.
+ */
 @Singleton
 public class FieldScreen extends ScreenAdapter {
 
@@ -22,6 +25,13 @@ public class FieldScreen extends ScreenAdapter {
   private final Set<EntityGenerator> entityGenerators;
   private final InputMultiplexer multiplexer;
 
+  /**
+   * Instantiates a new Field screen.
+   *
+   * @param engineManager    the engine manager
+   * @param entityGenerators the entity generators
+   * @param inputAdapters    the input adapters
+   */
   @Inject
   public FieldScreen(final EngineManager engineManager,
                      final Set<EntityGenerator> entityGenerators,

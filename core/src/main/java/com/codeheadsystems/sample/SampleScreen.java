@@ -32,6 +32,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+/**
+ * The type Sample screen.
+ */
 @Singleton
 public class SampleScreen extends ScreenAdapter {
 
@@ -40,6 +43,12 @@ public class SampleScreen extends ScreenAdapter {
 
   private Texture img;
 
+  /**
+   * Instantiates a new Sample screen.
+   *
+   * @param batch        the batch
+   * @param assetManager the asset manager
+   */
   @Inject
   public SampleScreen(final SpriteBatch batch,
                       final AssetManager assetManager) {
@@ -69,6 +78,12 @@ public class SampleScreen extends ScreenAdapter {
   @Module
   public interface SampleModule {
 
+    /**
+     * Main screen screen.
+     *
+     * @param impl the
+     * @return the screen
+     */
     @Binds
     @Named(MAIN_SCREEN)
     Screen mainScreen(SampleScreen impl);

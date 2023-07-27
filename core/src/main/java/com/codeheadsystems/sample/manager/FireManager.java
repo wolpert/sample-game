@@ -7,9 +7,15 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.utils.Logger;
 import javax.inject.Inject;
 
+/**
+ * The type Fire manager.
+ */
 public class FireManager extends InputAdapter {
   private static final Logger LOGGER = logger(FireManager.class);
 
+  /**
+   * Instantiates a new Fire manager.
+   */
   @Inject
   public FireManager() {
 

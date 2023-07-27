@@ -12,6 +12,9 @@ import dagger.Component;
 import dagger.Module;
 import javax.inject.Singleton;
 
+/**
+ * The interface Battle game screen component.
+ */
 @Singleton
 @Component(modules = {
     GdxRuntimeCacheModule.class,
@@ -21,6 +24,12 @@ import javax.inject.Singleton;
     BattleGameScreenComponent.Binder.class})
 public interface BattleGameScreenComponent {
 
+  /**
+   * Build battle game screen component.
+   *
+   * @param cache the cache
+   * @return the battle game screen component
+   */
   static BattleGameScreenComponent build(final GdxRuntimeCache cache) {
     Gdx.app.setLogLevel(Application.LOG_DEBUG); // TODO: make this setable
     return DaggerBattleGameScreenComponent.builder()
@@ -28,11 +37,25 @@ public interface BattleGameScreenComponent {
         .build();
   }
 
+  /**
+   * Screen screen.
+   *
+   * @return the screen
+   */
   Screen screen();
 
+  /**
+   * The interface Binder.
+   */
   @Module
   interface Binder {
 
+    /**
+     * Entity screen screen.
+     *
+     * @param screen the screen
+     * @return the screen
+     */
     @Binds
     Screen entityScreen(FieldScreen screen);
 

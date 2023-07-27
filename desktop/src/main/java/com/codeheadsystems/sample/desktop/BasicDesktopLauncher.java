@@ -28,16 +28,29 @@ import javax.inject.Singleton;
  * GDX application up and running without any extras.
  */
 public class BasicDesktopLauncher {
+  /**
+   * The entry point of application.
+   *
+   * @param arg the input arguments
+   */
   public static void main(String[] arg) {
     DaggerBasicDesktopLauncher_BasicDesktopComponent.builder()
         .build()
         .application();
   }
 
+  /**
+   * The interface Basic desktop component.
+   */
   @Singleton
   @Component(modules = {GameLibModule.class, SampleScreen.SampleModule.class})
   public interface BasicDesktopComponent {
 
+    /**
+     * Application lwjgl 3 application.
+     *
+     * @return the lwjgl 3 application
+     */
     Lwjgl3Application application();
 
   }

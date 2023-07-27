@@ -38,6 +38,9 @@ import java.util.function.Consumer;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+/**
+ * The type Sample entity module.
+ */
 @Module(includes = {SampleEntityModule.Binder.class})
 public class SampleEntityModule {
 
@@ -46,6 +49,11 @@ public class SampleEntityModule {
    * dagger injection. The asset manager has to have loaded everything up... which only
    * happens during the loading screen. You can have your own entity screen that creates
    * the sprites if you want, or use the method shown below.
+   *
+   * @param engineManager the engine manager
+   * @param assetManager  the asset manager
+   * @param camera        the camera
+   * @return the consumer
    */
   @Provides
   @Singleton
@@ -84,6 +92,9 @@ public class SampleEntityModule {
      * Here, we want the first screen to be used once loaded as the entity screen.
      * You can actually setup your own screen first that once the game starts, goes
      * to the entity screen.
+     *
+     * @param impl the
+     * @return the screen
      */
     @Binds
     @Named(MAIN_SCREEN)

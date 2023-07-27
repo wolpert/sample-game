@@ -43,6 +43,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+/**
+ * The type Sample hex screen.
+ */
 @Singleton
 public class SampleHexScreen extends ScreenAdapter {
 
@@ -54,6 +57,16 @@ public class SampleHexScreen extends ScreenAdapter {
   private final Layout layout;
   private final HexFieldSearchManager hexFieldSearchManager;
 
+  /**
+   * Instantiates a new Sample hex screen.
+   *
+   * @param batch                 the batch
+   * @param shapeRenderer         the shape renderer
+   * @param assetManager          the asset manager
+   * @param hexComponentManager   the hex component manager
+   * @param hexFieldLayout        the hex field layout
+   * @param hexFieldSearchManager the hex field search manager
+   */
   @Inject
   public SampleHexScreen(final SpriteBatch batch,
                          final ShapeRenderer shapeRenderer,
@@ -105,13 +118,27 @@ public class SampleHexScreen extends ScreenAdapter {
   @Module(includes = {HexModule.HexConfiguration.class})
   public interface HexModule {
 
+    /**
+     * Main screen screen.
+     *
+     * @param impl the
+     * @return the screen
+     */
     @Binds
     @Named(MAIN_SCREEN)
     Screen mainScreen(SampleHexScreen impl);
 
+    /**
+     * The type Hex configuration.
+     */
     @Module
     class HexConfiguration {
 
+      /**
+       * Layout layout.
+       *
+       * @return the layout
+       */
       @Provides
       @Singleton
       public Layout layout() {
@@ -121,6 +148,11 @@ public class SampleHexScreen extends ScreenAdapter {
             .setSize(new Vector2().set(40, 40));
       }
 
+      /**
+       * Rows int.
+       *
+       * @return the int
+       */
       @Provides
       @Singleton
       @Named("HexConfiguration.rows")
@@ -128,6 +160,11 @@ public class SampleHexScreen extends ScreenAdapter {
         return 5;
       }
 
+      /**
+       * Cols int.
+       *
+       * @return the int
+       */
       @Provides
       @Singleton
       @Named("HexConfiguration.cols")
@@ -135,6 +172,14 @@ public class SampleHexScreen extends ScreenAdapter {
         return 6;
       }
 
+      /**
+       * Hex field layout hex field layout.
+       *
+       * @param layout the layout
+       * @param rows   the rows
+       * @param cols   the cols
+       * @return the hex field layout
+       */
       @Provides
       @Singleton
       public HexFieldLayout hexFieldLayout(final Layout layout,

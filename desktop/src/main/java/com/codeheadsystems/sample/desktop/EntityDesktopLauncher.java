@@ -24,15 +24,26 @@ import com.codeheadsystems.sample.SampleEntityModule;
 import dagger.Component;
 import javax.inject.Singleton;
 
+/**
+ * The type Entity desktop launcher.
+ */
 public class EntityDesktopLauncher {
 
 
+  /**
+   * The entry point of application.
+   *
+   * @param arg the input arguments
+   */
   public static void main(String[] arg) {
     DaggerEntityDesktopLauncher_EntityDesktopComponent.builder()
         .build()
         .application();
   }
 
+  /**
+   * The interface Entity desktop component.
+   */
   @Singleton
   @Component(modules = {
       SampleEntityModule.class,
@@ -41,6 +52,11 @@ public class EntityDesktopLauncher {
   })
   public interface EntityDesktopComponent {
 
+    /**
+     * Application lwjgl 3 application.
+     *
+     * @return the lwjgl 3 application
+     */
     Lwjgl3Application application();
 
   }

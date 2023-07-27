@@ -26,18 +26,38 @@ import dagger.multibindings.IntoSet;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+/**
+ * The type Battle entity module.
+ */
 @Module(includes = {BattleEntityModule.Binder.class})
 public class BattleEntityModule {
 
+  /**
+   * The constant TANK_SPRITE.
+   */
   public static final String TANK_SPRITE = "tankSprite";
   private static final float UNIT_SCALE = 1 / 4f;
 
+  /**
+   * Game constants game constants.
+   *
+   * @param assetManager the asset manager
+   * @return the game constants
+   */
   @Provides
   @Singleton
   public GameConstants gameConstants(final AssetManager assetManager){
     return assetManager.get("game_constants.json", GameConstants.class);
   }
 
+  /**
+   * Background entity generator.
+   *
+   * @param engineManager the engine manager
+   * @param spriteBatch   the sprite batch
+   * @param assetManager  the asset manager
+   * @return the entity generator
+   */
   @Provides
   @Singleton
   @IntoSet
@@ -55,6 +75,13 @@ public class BattleEntityModule {
     };
   }
 
+  /**
+   * Tank entity generator.
+   *
+   * @param engineManager the engine manager
+   * @param tankSprite    the tank sprite
+   * @return the entity generator
+   */
   @Provides
   @Singleton
   @IntoSet
@@ -69,6 +96,12 @@ public class BattleEntityModule {
     };
   }
 
+  /**
+   * Tile width int.
+   *
+   * @param assetManager the asset manager
+   * @return the int
+   */
   @Provides
   @Singleton
   @Named("TILE_WIDTH")
@@ -78,6 +111,12 @@ public class BattleEntityModule {
     return prop.get("tilewidth", Integer.class);
   }
 
+  /**
+   * Tile height int.
+   *
+   * @param assetManager the asset manager
+   * @return the int
+   */
   @Provides
   @Singleton
   @Named("TILE_HEIGHT")
@@ -87,6 +126,15 @@ public class BattleEntityModule {
     return prop.get("tileheight", Integer.class);
   }
 
+  /**
+   * Tank sprite sprite.
+   *
+   * @param assetManager the asset manager
+   * @param tileWidth    the tile width
+   * @param tileHeight   the tile height
+   * @param camera       the camera
+   * @return the sprite
+   */
   @Provides
   @Singleton
   @Named(TANK_SPRITE)
@@ -119,10 +167,22 @@ public class BattleEntityModule {
     @IntoSet
     EntitySystem tiledBackground(TiledBackgroundEntitySystems entitySystems);
 
+    /**
+     * Zoom entity system entity system.
+     *
+     * @param entitySystem the entity system
+     * @return the entity system
+     */
     @Binds
     @IntoSet
     EntitySystem zoomEntitySystem(ZoomEntitySystem entitySystem);
 
+    /**
+     * Tank entity system entity system.
+     *
+     * @param tankEntitySystem the tank entity system
+     * @return the entity system
+     */
     @Binds
     @IntoSet
     EntitySystem tankEntitySystem(TankEntitySystem tankEntitySystem);
